@@ -2,7 +2,9 @@ var fs = require("fs");
 const { get } = require("http");
 
 module.exports = function (app) {
-    // get all notes from db.json
+    
+    // GET ALL NOTES FROM DB.JSON
+
     app.get('/api/notes/', function (req, res) {
         fs.readFile("./db/db.json", "utf8", (err, response) => {
             if (err) throw err;
@@ -10,6 +12,8 @@ module.exports = function (app) {
             res.json(allNotes);
         });
     });
+    
+    // CREATE NEW NOTES AND STORE IN DB.JSON
 
     app.post("/api/notes", function (req, res) {
         fs.readFile("./db/db.json", "utf8", (err, response) => {
@@ -31,7 +35,8 @@ module.exports = function (app) {
         });
     })
 
-    // delete notes from db.json
+    // DELETE NOTES FROM DB.JSON
+
     app.delete("/api/notes/:id", function(req, res) {
         let savedNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
         let noteID = req.params.id;
